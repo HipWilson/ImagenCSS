@@ -1,0 +1,244 @@
+:root {
+  --color-cuerpo:        #8B6914;
+  --color-cabeza:        #3d7a1a;
+  --color-pico:          #e8c832;
+  --color-linea:         #111111;
+  --color-fondo:         #000000;
+  --color-pata:          #7a5c10;
+  --color-sombra-cabeza: #2a5510;
+  --color-sombra-cuerpo: #6b5010;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-cuerpo:        #c4932a;
+    --color-cabeza:        #5ab025;
+    --color-pico:          #f5d742;
+    --color-linea:         #111111;
+    --color-fondo:         #d8d8d8;
+    --color-pata:          #a07820;
+    --color-sombra-cabeza: #3d7a1a;
+    --color-sombra-cuerpo: #a07820;
+  }
+}
+
+@supports (display: grid) {
+  .pato { display: grid; }
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: var(--color-fondo);
+}
+
+.escena {
+  display: grid;
+  place-items: center;
+  /* clamp() min() max() (5 pts) */
+  padding: clamp(10px, 3vw, 30px);
+  min-width: min(100vw, 600px);
+  max-width: max(300px, 55vw);
+}
+
+.escena:has(.pato) {
+  background: var(--color-fondo);
+}
+
+.pato {
+  display: grid;
+  width: 420px;
+  height: 420px;
+}
+
+.pato > * {
+  grid-area: 1 / 1;
+}
+
+.pato .pico {
+  z-index: 4;
+}
+
+.pato > .cabeza {
+  z-index: 3;
+}
+
+.cuerpo {
+  width: 295px;
+  height: 190px;
+  background: var(--color-cuerpo);
+  border-radius: 48% 58% 55% 48% / 52% 52% 58% 52%;
+  margin-top: 190px;
+  margin-left: 65px;
+  position: relative;
+  box-shadow: inset -20px -12px 0 var(--color-sombra-cuerpo);
+  z-index: 1;
+}
+
+.cuerpo::before {
+  content: '';
+  width: 170px;
+  height: 82px;
+  border-bottom: 15px solid var(--color-linea);
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 28px;
+  right: 15px;
+}
+
+.cuerpo::after {
+  content: '';
+  width: 50px;
+  height: 60px;
+  background: var(--color-cuerpo);
+  border-radius: 15% 55% 50% 15%;
+  position: absolute;
+  right: -18px;
+  bottom: 28px;
+  box-shadow: inset -5px -4px 0 var(--color-sombra-cuerpo);
+}
+
+.cuello {
+  width: 72px;
+  height: 130px;
+  background: var(--color-cabeza);
+  border-radius: 36px 36px 18px 18px;
+  margin-top: 108px;
+  margin-left: 115px;
+  box-shadow: inset -6px -6px 0 var(--color-sombra-cabeza);
+  z-index: 2;
+}
+
+.cabeza {
+  width: 118px;
+  height: 108px;
+  background: var(--color-cabeza);
+  border-radius: 54% 58% 52% 50%;
+  margin-top: 18px;
+  margin-left: 88px;
+  position: relative;
+  box-shadow: inset -12px -8px 0 var(--color-sombra-cabeza);
+  z-index: 3;
+}
+
+.cabeza::before {
+  content: '';
+  width: 15px;
+  height: 15px;
+  background: #0a0a0a;
+  border-radius: 50%;
+  position: absolute;
+  top: 24px;
+  right: 14px;
+  box-shadow: 2px 2px 0 rgba(255,255,255,0.2);
+}
+
+.cabeza::after {
+  content: '';
+  width: 5px;
+  height: 5px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 26px;
+  right: 23px;
+}
+
+.pico {
+  width: 68px;
+  height: 24px;
+  background: var(--color-pico);
+  border-radius: 0 18px 18px 0;
+  margin-top: 76px;
+  margin-left: 32px;
+  position: relative;
+  z-index: 4;
+}
+
+.pico::before {
+  content: '';
+  width: 62px;
+  height: 20px;
+  background: var(--color-pico);
+  border-radius: 18px 0 0 18px;
+  position: absolute;
+  right: 0;
+  top: -16px;
+}
+
+.pico::after {
+  content: '';
+  width: 52px;
+  height: 2px;
+  background: var(--color-linea);
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.pata {
+  width: 34px;
+  background: var(--color-pata);
+  border-radius: 12px 12px 5px 5px;
+  position: relative;
+  align-self: end;
+  justify-self: start;
+  z-index: 2;
+}
+
+.pato > .pata:first-of-type {
+  height: 68px;
+  margin-left: 142px;
+  margin-bottom: 12px;
+}
+
+.pato > .pata:last-of-type {
+  height: 60px;
+  margin-left: 186px;
+  margin-bottom: 12px;
+  opacity: 0.82;
+}
+
+.pato > .pata:nth-of-type(2) {
+  filter: brightness(0.8);
+}
+
+.pata::before {
+  content: '';
+  width: 50px;
+  height: 13px;
+  background: var(--color-pata);
+  border-radius: 0 0 12px 12px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.pata + .pata {
+
+  filter: brightness(0.8);
+}
+
+.cuello ~ .pata {
+
+  z-index: 2;
+}
+
+.pato {
+  & .cuerpo  { z-index: 1; }
+  & .cuello  { z-index: 2; }
+  & .cabeza  { z-index: 3; }
+  & .pico    { z-index: 4; }
+}
